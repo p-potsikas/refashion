@@ -45,6 +45,8 @@ Create `.env` and add:
 ```
 DATABASE_URL=postgres://postgres:postgres@localhost:5432/mercur_db
 ```
+Also, `.env` file is in Refashion init folder, and you can just copy paste in mercur/apps/backend - just check ips and DATABASE etc codes...
+
 
 Start PostgreSQL via Docker:
 
