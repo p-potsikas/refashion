@@ -71,6 +71,10 @@ Run migrations:
 ```bash
 yarn medusa db:migrate
 ```
+and seed to have an initial admin market setuped:
+```bash
+yarn run seed
+```
 
 Create admin user:
 
