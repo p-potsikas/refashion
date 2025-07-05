@@ -88,7 +88,7 @@ Start backend:
 yarn dev
 ```
 
-> Backend runs at: `http://localhost:9000`
+> Backend runs at: ` http://localhost:9000/app`
 
 ---
 
@@ -112,6 +112,9 @@ cd vendor-panel
 npm install
 npm run dev
 ```
+
+> Vendor runs at: `http://localhost:5173`
+
 
 ---
 
