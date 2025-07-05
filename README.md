@@ -1,4 +1,4 @@
-# 🛍️ Refashion eShop Platform
+# 🛍️ LOCAL - Refashion eShop Platform
 
 **Refashion** is a modern full-stack eCommerce marketplace platform built with:
 
@@ -21,18 +21,20 @@ Refashion/
 
 ## 🚀 Quick Setup
 
-### 1. Clone and Install
-
+### 1. Clone 
 ```bash
 git clone https://github.com/EmmanuelPintelas/Refashion.git
+```
+
+### 2. Install Backend
+
+```bash
 cd Refashion\mercur
 yarn install
 yarn build
 ```
 
----
-
-### 2. Start Backend (Medusa.js)
+### 3. Start Backend (Medusa.js)
 
 ```bash
 cd apps/backend
@@ -76,20 +78,25 @@ yarn dev
 
 ---
 
-### 3. Start Frontend Modules
+### 4. Start Frontend Modules
 
 #### b2c-marketplace-storefront
 
 ```bash
 cd b2c-marketplace-storefront
-yarn dev
+npm install
+npm run dev
 ```
+
+> Frontend runs at: `http://localhost:3000`
+
 
 #### vendor-panel
 
 ```bash
 cd vendor-panel
-yarn dev
+npm install
+npm run dev
 ```
 
 ---
