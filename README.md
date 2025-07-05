@@ -114,6 +114,19 @@ npm run dev
 ```bash
 cd vendor-panel
 npm install
+```
+
+Make a .env.local file and fill in:
+
+```
+VITE_MEDUSA_BASE='/'
+VITE_MEDUSA_STOREFRONT_URL=http://localhost:3000
+VITE_MEDUSA_BACKEND_URL=http://localhost:9000
+VITE_TALK_JS_APP_ID=demo
+VITE_DISABLE_SELLERS_REGISTRATION=false
+```
+
+```bash
 npm run dev
 ```
 
