@@ -99,6 +99,10 @@ yarn dev
 ```bash
 cd b2c-marketplace-storefront
 npm install
+```
+Then, create .env.local. From admin settings, you paste a publishable key // one working sample already exist in Refashion init folder. 
+
+```bash
 npm run dev
 ```
 
