@@ -25,7 +25,7 @@ Refashion/
 
 ```bash
 git clone https://github.com/EmmanuelPintelas/Refashion.git
-cd Refashion
+cd Refashion\mercur
 yarn install
 yarn build
 ```
