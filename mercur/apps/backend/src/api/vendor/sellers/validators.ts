@@ -87,17 +87,28 @@ export const VendorGetSellerParams = createSelectParams()
 export type VendorCreateSellerType = z.infer<typeof VendorCreateSeller>
 export const VendorCreateSeller = z
   .object({
+    // Registration mode
+    registration_type: z.enum(["individual", "business"]),
+
+    // General seller fields
     name: z.preprocess((val: string) => val?.trim(), z.string().min(1)),
     description: z.string().nullish().optional(),
     photo: z.string().nullish().optional(),
     email: z.string().email().nullish(),
-    phone: z.string().nullish(),
+    phone: z.string().nullish().optional(),
     address_line: z.string().nullish().optional(),
     city: z.string().nullish().optional(),
     state: z.string().nullish().optional(),
     postal_code: z.string().nullish().optional(),
     country_code: z.string().nullish().optional(),
     tax_id: z.string().nullish().optional(),
+
+    // Optional, only required for business
+    company_name: z.string().optional().nullable(),
+    vat_number: z.string().optional().nullable(),
+    tax_office: z.string().optional().nullable(),
+
+    // Member data (same for both types)
     member: z.object({
       name: z.string(),
       email: z.string().email(),
@@ -107,6 +118,32 @@ export const VendorCreateSeller = z
     })
   })
   .strict()
+  .superRefine((data, ctx) => {
+    if (data.registration_type === "business") {
+      if (!data.company_name) {
+        ctx.addIssue({
+          path: ["company_name"],
+          code: z.ZodIssueCode.custom,
+          message: "Company name is required for business registration"
+        })
+      }
+      if (!data.vat_number) {
+        ctx.addIssue({
+          path: ["vat_number"],
+          code: z.ZodIssueCode.custom,
+          message: "VAT number is required for business registration"
+        })
+      }
+      if (!data.tax_office) {
+        ctx.addIssue({
+          path: ["tax_office"],
+          code: z.ZodIssueCode.custom,
+          message: "Tax office is required for business registration"
+        })
+      }
+    }
+  })
+  
 
 /**
  * @schema VendorUpdateSeller

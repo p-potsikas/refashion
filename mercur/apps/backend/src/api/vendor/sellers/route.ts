@@ -82,7 +82,7 @@ export const POST = async (
         auth_identity_id: req.auth_context?.auth_identity_id,
         provider_identity_id: identity.entity_id
       },
-      type: 'seller',
+      type: 'seller',// seller_creation  seller
       submitter_id: identity.id
     },
     container: req.scope
