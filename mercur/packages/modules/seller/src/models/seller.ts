@@ -20,6 +20,13 @@ export const Seller = model.define("seller", {
   postal_code: model.text().nullable(),
   country_code: model.text().nullable(),
   tax_id: model.text().nullable(),
+
+  // ✅ Νέα πεδία
+  registration_type: model.text().nullable(),
+  company_name: model.text().nullable(),
+  vat_number: model.text().nullable(),
+  tax_office: model.text().nullable(),
+
   members: model.hasMany(() => Member),
   invites: model.hasMany(() => MemberInvite),
   onboarding: model.hasOne(() => SellerOnboarding).nullable(),

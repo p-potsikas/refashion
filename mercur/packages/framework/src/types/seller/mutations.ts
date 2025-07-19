@@ -1,12 +1,25 @@
 import { MemberInviteDTO, MemberRole, SellerDTO, StoreStatus } from './common'
 
+// export interface CreateSellerDTO
+//   extends Omit<
+//     Partial<SellerDTO>,
+//     'id' | 'created_at' | 'updated_at' | 'members'
+//   > {
+//   name: string
+// }
+
 export interface CreateSellerDTO
-  extends Omit<
-    Partial<SellerDTO>,
-    'id' | 'created_at' | 'updated_at' | 'members'
-  > {
+  extends Omit<Partial<SellerDTO>, 'id' | 'created_at' | 'updated_at' | 'members'> {
   name: string
+
+  //  Νέα πεδία:
+  registration_type?: 'individual' | 'business'
+  company_name?: string
+  vat_number?: string
+  tax_office?: string
 }
+
+
 
 export interface UpdateSellerDTO {
   id: string

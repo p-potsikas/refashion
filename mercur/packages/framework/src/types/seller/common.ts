@@ -1,3 +1,4 @@
+
 export enum StoreStatus {
   ACTIVE = "ACTIVE",
   INACTIVE = "INACTIVE",
@@ -22,6 +23,12 @@ export type SellerDTO = {
   handle: string;
   photo: string | null;
   members?: Partial<MemberDTO>[];
+
+  // ✅ Νέα πεδία
+  registration_type?: "individual" | "business" | null;
+  company_name?: string | null;
+  vat_number?: string | null;
+  tax_office?: string | null;
 };
 
 export type SellerWithPayoutAccountDTO = SellerDTO & {
@@ -60,7 +67,9 @@ export type MemberInviteDTO = {
   updated_at: Date;
   email: string;
   role: MemberRole;
-  seller?: Partial<SellerDTO>;
+  seller?: Partial<SellerDTO> & {
+    registration_type?: "individual" | "business" | null;
+  };
   token: string;
   expires_at: Date;
   accepted: boolean;

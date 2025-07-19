@@ -28,7 +28,7 @@ export const vendorSellersMiddlewares: MiddlewareRoute[] = [
     method: ['POST'],
     matcher: '/vendor/sellers',
     middlewares: [
-      validateAndTransformBody(VendorCreateSeller),
+      validateAndTransformBody(() => VendorCreateSeller),
       validateAndTransformQuery(
         VendorGetSellerParams,
         vendorSellerQueryConfig.retrieve

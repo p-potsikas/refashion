@@ -198,6 +198,7 @@ export const VendorCreateSeller = z
 export type VendorUpdateSellerType = z.infer<typeof VendorUpdateSeller>
 export const VendorUpdateSeller = z
   .object({
+    registration_type: z.enum(["individual", "business"]).optional(),
     name: z
       .preprocess((val: string) => val.trim(), z.string().min(4))
       .optional(),
@@ -210,7 +211,10 @@ export const VendorUpdateSeller = z
     state: z.string().optional(),
     postal_code: z.string().optional(),
     country_code: z.string().optional(),
-    tax_id: z.string().optional()
+    tax_id: z.string().optional(),
+    company_name: z.string().optional().nullable(),
+    vat_number: z.string().optional().nullable(),
+    tax_office: z.string().optional().nullable()
   })
   .strict()
 

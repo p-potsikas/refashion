@@ -1,3 +1,5 @@
+import { castRegistrationType } from '@mercurjs/framework/src/utils/cast'
+
 import { StepResponse, createStep } from '@medusajs/framework/workflows-sdk'
 
 import { MemberDTO, UpdateMemberDTO } from '@mercurjs/framework'
@@ -10,7 +12,15 @@ export const updateMemberStep = createStep(
 
     const previousData = await service.retrieveMember(input.id)
 
-    const updatedMember: MemberDTO = await service.updateMembers(input)
+    const updatedRaw = await service.updateMembers(input)
+
+    const updatedMember: MemberDTO = {
+      ...updatedRaw,
+      seller: {
+        ...updatedRaw.seller,
+        registration_type: castRegistrationType(updatedRaw.seller?.registration_type),
+      },
+    }
 
     return new StepResponse(updatedMember, previousData as UpdateMemberDTO)
   },

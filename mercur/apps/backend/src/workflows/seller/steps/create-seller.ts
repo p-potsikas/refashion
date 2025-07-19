@@ -1,3 +1,5 @@
+import { castRegistrationType } from '@mercurjs/framework/src/utils/cast'
+
 import { toHandle } from '@medusajs/framework/utils'
 import { StepResponse, createStep } from '@medusajs/framework/workflows-sdk'
 
@@ -9,10 +11,16 @@ export const createSellerStep = createStep(
   async (input: CreateSellerDTO, { container }) => {
     const service = container.resolve<SellerModuleService>(SELLER_MODULE)
 
-    const seller: SellerDTO = await service.createSellers({
+    const rawSeller = await service.createSellers({
       ...input,
       handle: toHandle(input.name)
     })
+
+    const seller: SellerDTO = {
+      ...rawSeller,
+      registration_type: castRegistrationType(rawSeller.registration_type),
+    }
+
 
     return new StepResponse(seller, seller.id)
   },

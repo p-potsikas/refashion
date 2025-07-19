@@ -1,3 +1,6 @@
+import { castRegistrationType } from '@mercurjs/framework/src/utils/cast'
+
+
 import { StepResponse, createStep } from '@medusajs/framework/workflows-sdk'
 
 import { CreateMemberDTO, MemberDTO } from '@mercurjs/framework'
@@ -9,7 +12,15 @@ export const createMemberStep = createStep(
   async (input: CreateMemberDTO, { container }) => {
     const service = container.resolve<SellerModuleService>(SELLER_MODULE)
 
-    const member: MemberDTO = await service.createMembers(input)
+    const memberRaw = await service.createMembers(input)
+
+    const member: MemberDTO = {
+      ...memberRaw,
+      seller: {
+        ...memberRaw.seller,
+        registration_type: castRegistrationType(memberRaw.seller?.registration_type),
+      },
+    }
 
     return new StepResponse(member, member.id)
   },

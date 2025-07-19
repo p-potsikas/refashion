@@ -1,3 +1,5 @@
+import { castRegistrationType } from '@mercurjs/framework/src/utils/cast'
+
 import { toHandle } from '@medusajs/framework/utils'
 import { Modules } from '@medusajs/framework/utils'
 import { StepResponse, createStep } from '@medusajs/framework/workflows-sdk'
@@ -17,10 +19,16 @@ export const updateSellerStep = createStep(
 
     const newHandle = input.name ? toHandle(input.name) : undefined
 
-    const updatedSellers: SellerDTO = await service.updateSellers({
+    const rawSeller = await service.updateSellers({
       ...input,
       ...(newHandle ? { handle: newHandle } : {})
     })
+
+    const updatedSellers: SellerDTO = {
+      ...rawSeller,
+      registration_type: castRegistrationType(rawSeller.registration_type),
+    }
+
 
     if (input.store_status) {
       await eventBus.emit({

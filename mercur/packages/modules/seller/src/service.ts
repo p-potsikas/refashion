@@ -1,3 +1,7 @@
+import { castRegistrationType } from "@mercurjs/framework/src/utils/cast" // import new helper
+
+import { SellerDTO } from "@mercurjs/framework";
+
 import jwt, { JwtPayload } from "jsonwebtoken";
 
 import { ConfigModule } from "@medusajs/framework";
@@ -88,23 +92,39 @@ class SellerModuleService extends MedusaService({
     expires_at.setMilliseconds(
       new Date().getMilliseconds() + DEFAULT_VALID_INVITE_DURATION
     );
-    const toCreate = data.map((invite) => {
-      return {
-        ...invite,
-        expires_at: new Date(),
-        token: "placeholder",
-      };
-    });
+
+    const toCreate = data.map((invite) => ({
+      ...invite,
+      expires_at: new Date(),
+      token: "placeholder",
+    }));
 
     const created = await super.createMemberInvites(toCreate, sharedContext);
     const toUpdate = Array.isArray(created) ? created : [created];
 
     const updates = toUpdate.map((invite) => {
+      const sanitizeSeller = (seller: any): Partial<SellerDTO> => {
+        return {
+          ...seller,
+          registration_type: castRegistrationType(seller?.registration_type),
+          members: undefined, // prevent circular recursion
+        };
+      };
+
+      const sanitizedMembers = invite.seller?.members?.map((member) => ({
+        ...member,
+        seller: sanitizeSeller(member.seller),
+      }));
+
       return {
         ...invite,
         id: invite.id,
         expires_at,
         token: this.generateToken({ id: invite.id }),
+        seller: {
+          ...sanitizeSeller(invite.seller),
+          members: sanitizedMembers,
+        },
       };
     });
 
