@@ -23,7 +23,8 @@ Refashion/
 
 ### 1. Clone 
 ```bash
-git clone https://github.com/EmmanuelPintelas/Refashion.git
+git clone https://github.com/p-potsikas/refashion.git
+
 ```
 
 ### 2. Install Backend
