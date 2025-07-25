@@ -13,8 +13,22 @@ type ProfileGeneralSectionProps = {
 export const ProfileGeneralSection = ({ user }: ProfileGeneralSectionProps) => {
   const { t } = useTranslation()
 
-  const { name, email, photo, phone, bio } = user
+  const { name, email, photo, phone, bio, registration_type } = user
 
+  return (
+      <Container className="divide-y p-0">
+        {/* Existing content */}
+
+        <div className="px-6 py-4">
+          <Text size="small" weight="plus">
+            Debug User Object
+          </Text>
+          <pre className="text-xs bg-gray-900 text-white p-2 rounded mt-2">
+        {JSON.stringify(user, null, 2)}
+      </pre>
+        </div>
+      </Container>
+    )
   return (
     <Container className="divide-y p-0">
       <div className="flex items-center justify-between px-6 py-4">
@@ -49,7 +63,7 @@ export const ProfileGeneralSection = ({ user }: ProfileGeneralSectionProps) => {
           {t("fields.name")}
         </Text>
         <Text size="small" leading="compact">
-          {name || "-"}
+          {registration_type || "-"}
         </Text>
       </div>
       <div className="grid grid-cols-2 items-center px-6 py-4">
