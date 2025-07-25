@@ -27,16 +27,22 @@ export const useSignUpWithEmailPass = (
     string,
     FetchError,
     HttpTypes.AdminSignInWithEmailPassword & {
-      confirmPassword: string
-      name: string
-    }
+    confirmPassword: string
+    name: string
+    registration_type: string // <-- Added here
+  }
   >
 ) => {
   return useMutation({
-    mutationFn: (payload) => sdk.auth.register("seller", "emailpass", payload),
+    mutationFn: (payload) =>
+      sdk.auth.register("seller", "emailpass", {
+        ...payload,
+        registration_type: payload.registration_type, // <-- Added here
+      }),
     onSuccess: async (_, variables) => {
       const seller = {
         name: variables.name,
+        registration_type: variables.registration_type, // <-- Added here
         member: {
           name: variables.name,
           email: variables.email,
@@ -50,6 +56,7 @@ export const useSignUpWithEmailPass = (
     ...options,
   })
 }
+
 
 export const useResetPasswordForEmailPass = (
   options?: UseMutationOptions<void, FetchError, { email: string }>
