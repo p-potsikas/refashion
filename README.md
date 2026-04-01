@@ -125,12 +125,3 @@ npm run dev
 ```
 
 > Vendor runs at: `http://localhost:5173`
-
-
----
-
-## 📬 Maintainer
-
-**Manolis Pintelas**  
-📧 manolis_pintelas@hotmail.com  
-🔗 [https://github.com/EmmanuelPintelas](https://github.com/EmmanuelPintelas)
